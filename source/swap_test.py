@@ -100,11 +100,11 @@ def swap_test_8Q(phi):
     for c in CS_list:
         out = np.dot(c, out)
 
-    for h in H_list[1:]:
-        out = np.dot(h, out)
+    #for h in H_list[1:]:
+    out = np.dot(H_list[0], out)
 
     measurement_list = []
-    for i in range(1, 8):
+    for i in range(0, 8):
         measurement_list.append(measure_register(out, i, n))
 
     return measurement_list
