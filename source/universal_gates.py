@@ -61,7 +61,8 @@ def cnot(c, x, n):
 
 def ccnot(controls, x, n):
     """
-    Implement a Toffoli gate controlled by controls[0] and controls[1]
+    Implement a Toffoli gate controlled by controls[0] and controls[1] as in
+    https://arxiv.org/pdf/0803.2316.pdf
 
     :param controls:
     :param x:
