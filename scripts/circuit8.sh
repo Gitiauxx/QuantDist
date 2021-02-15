@@ -18,4 +18,4 @@ module load cuda/9.2
 source ../fvae-env/bin/activate
 
 echo $SLURM_ARRAY_TASK_ID
-../fvae-env/bin/python3 source/swap_test.py
+../fvae-env/bin/python3 run.py
