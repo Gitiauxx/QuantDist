@@ -11,9 +11,9 @@
 #SBATCH --tasks 1
 #SBATCH --mem=64G
 #SBATCH --qos=csqos
-#SBATCH --array=0-10
+#SBATCH --array=0-100
 
 source ../fvae-env/bin/activate
 
 echo $SLURM_ARRAY_TASK_ID
-../fvae-env/bin/python3 genetic_algorithm/GeneticAlgorithm.py --depth 9 --num_ancillas 6 --seed $SLURM_ARRAY_TASK_ID --num_iterations 500 --run Test
+../fvae-env/bin/python3 genetic_algorithm/GeneticAlgorithm.py --depth 9 --num_ancillas 6 --seed $SLURM_ARRAY_TASK_ID --num_iterations 500 --run run1
