@@ -445,7 +445,7 @@ if __name__ == '__main__':
 
     tstamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     save_dir = '/scratch/xgitiaux/quantdist/genetic_search'
-    save_dir = f'{save_dir}/run_{args.run}_{args.depth}_{args.num_inputs}_{args.num_ancillas}'
+    save_dir = f'{save_dir}/run_{args.run}_depth_{args.depth}_inputs_{args.num_inputs}_ancillas_{args.num_ancillas}_gensize_{args.gen_size}'
     os.makedirs(save_dir, exist_ok=True)
 
     results = {'succes': found, 'circuit': circuit}
