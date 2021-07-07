@@ -424,7 +424,7 @@ if __name__ == '__main__':
     parser.add_argument('--num_inputs', type=int, default=8)
     parser.add_argument('--num_ancillas', type=int, default=6)
     parser.add_argument('--depth', type=int, default=9)
-    parser.add_argument('--mutation_rate', type=int, default=20)
+    parser.add_argument('--mutation_rate', type=int, default=40)
     parser.add_argument('--num_iterations', type=int, default=500)
     parser.add_argument('--gen_size', type=int, default=250)
     parser.add_argument('--seed', type=int, default=0)
