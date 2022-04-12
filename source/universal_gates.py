@@ -1,6 +1,29 @@
 import numpy as np
 from source.utils import apply_one_qbit_gate
 
+def x(a, n):
+    """
+    implement a X gate as a 2 by 2 matrix on the xth qubit in a system of size n
+    :param a:
+    :param n: system size
+    :return:
+    """
+    X = np.array([[0, 1], [1, 0]])
+
+    return apply_one_qbit_gate(a, n, X)
+
+def rz(a, n, theta):
+    """
+    implement a rotation around z axis of angle theta as a 2 by 2 matrix on the xth qubit in a system of size n
+    :param a:
+    :param n: system size
+    :return:
+    """
+    Z = np.array([[1, 0], [0, np.exp(1j * theta)]])
+
+    return apply_one_qbit_gate(a, n, Z)
+
+
 def hadamard(x, n):
     """
     implement a hadamard gate as a 2 by 2 matrix on the xth qubit in a system of size n
@@ -21,6 +44,28 @@ def t(x, n):
     :return:
     """
     T = np.array([[1, 0], [0, np.exp(1j * np.pi / 4)]])
+    return apply_one_qbit_gate(x, n, T)
+
+def id(x, n):
+    """
+    Implement a identity gate T = [[1, 0], [0, 1]] on the xth qbit of
+    a system of size n
+    :param x: position to apply tha gate
+    :param n:
+    :return:
+    """
+    I = np.array([[1, 0], [0, 1]])
+    return apply_one_qbit_gate(x, n, I)
+
+def tg(x, n):
+    """
+    Implement a phase shift T conjugate transpose gate Tg = [[1, 0], [0, exp(-i pi/4)]] on the xth qbit of
+    a system of size n
+    :param x: position to apply tha gate
+    :param n:
+    :return:
+    """
+    T = np.array([[1, 0], [0, np.exp(-1j * np.pi / 4)]])
     return apply_one_qbit_gate(x, n, T)
 
 

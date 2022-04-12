@@ -7,33 +7,12 @@ from qiskit import IBMQ
 IBMQ.load_account()
 
 from qiskit import QuantumCircuit, QuantumRegister, execute, Aer, ClassicalRegister, BasicAer
-from qiskit.providers.aer.noise import NoiseModel
-from qiskit.providers.aer.noise.errors import pauli_error, depolarizing_error
-from qiskit.test.mock import FakeAthens
-
+from qiskit.compiler import transpile, assemble
+from qiskit.visualization import plot_gate_map
 
 from source.utils import get_logger
 
-provider = IBMQ.get_provider(hub='ibm-q')
-for backend in provider.backends():
-    print(backend)
-
 logger = get_logger(__name__)
-
-
-def get_noise(p_meas, p_gate):
-    error_meas = pauli_error([('X', p_meas), ('I', 1 - p_meas)])
-    error_gate1 = depolarizing_error(p_gate, 1)
-    error_gate2 = error_gate1.tensor(error_gate1)
-
-    noise_model = NoiseModel()
-    noise_model.add_all_qubit_quantum_error(error_meas, "measure")
-    noise_model.add_all_qubit_quantum_error(error_gate1, ["x"])
-    noise_model.add_all_qubit_quantum_error(error_gate2, ["cx"])
-
-    return noise_model
-
-noise_model = get_noise(0.01,0.01)
 
 r0 = [1, 0, 0, 0]
 r1 = [sqrt(5 / 9), sqrt(4 / 9), 0, 0]
@@ -69,11 +48,16 @@ circuit.draw(output='mpl')
 plt.show()
 
 # Execute the circuit on the qasm simulator
-#simulator = Aer.get_backend('qasm_simulator')
-athens = FakeAthens()
-job = execute(circuit, athens, shots=2000)
-#, noise_model=noise_model)
+provider = IBMQ.get_provider(hub='ibm-q')
+backend = provider.get_backend('ibmq_16_melbourne')
+
+mapped_circuit = transpile(circuit, backend=backend)
+
+qobj = assemble(mapped_circuit, backend=backend, shots=8192)
+job = backend.run(qobj)
 result = job.result()
+
+logger.info(job.status)
 
 # Returns counts
 counts = result.get_counts(circuit)
